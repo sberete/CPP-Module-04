@@ -6,11 +6,11 @@ Ice::~Ice(){}
 
 Ice::Ice(Ice const & src) : AMateria(src) {}
 
-// Ice & Ice::operator= (Ice const & rhs)
-// {
-//     type = rhs.type;
-//     return *this;
-// }
+Ice & Ice::operator= (Ice const & rhs)
+{
+    type = rhs.type;
+    return *this;
+}
 
 AMateria* Ice::clone() const
 {

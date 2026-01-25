@@ -1,24 +1,24 @@
-// #ifndef MATERIASOURCE_HPP
-//     #define MATERIASOURCE_HPP
+#ifndef MATERIASOURCE_HPP
+    #define MATERIASOURCE_HPP
 
-// #include <string>
-// #include "AMateria.hpp"
-// #include "IMateriaSource.hpp"
+#include <string>
+#include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
-// class MateriaSource : public IMateriaSource
-// {
-//     public:
-//         MateriaSource();
-//         ~MateriaSource();
-//         MateriaSource(MateriaSource const &);
+class MateriaSource : public IMateriaSource
+{
+    public:
+        MateriaSource();
+        ~MateriaSource();
+        MateriaSource(MateriaSource const &);
 
-//         MateriaSource & operator=(MateriaSource const &);
+        MateriaSource & operator=(MateriaSource const &);
         
-//         virtual void learnMateria(AMateria*);
-//         virtual AMateria* createMateria(std::string const & type);
+        virtual void learnMateria(AMateria*);
+        virtual AMateria* createMateria(std::string const & type);
 
-//     private:
-//         AMateria* storage[4];
-// };
+    private:
+        AMateria* _storage[4];
+};
 
-// #endif
+#endif

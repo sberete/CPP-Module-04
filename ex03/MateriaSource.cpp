@@ -1,26 +1,70 @@
-// #include "MateriaSource.hpp"
+#include "MateriaSource.hpp"
 
-// MateriaSource::MateriaSource() {}
+MateriaSource::MateriaSource() : IMateriaSource()
+{
+    for (int i = 0; i < 4; i++)
+        _storage[i] = NULL;
+}
 
-// MateriaSource::~MateriaSource(){}
+MateriaSource::~MateriaSource()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (_storage[i])
+            delete _storage[i];
+    }
+}
 
-// MateriaSource & MateriaSource::operator= (MateriaSource const & rhs)
-// {
+MateriaSource::MateriaSource(MateriaSource const & src)
+{
+    for (int i = 0; i < 4; i++)
+        _storage[i] = NULL;
 
-// }
+    *this = src;
+}
 
-// void MateriaSource::learnMateria(AMateria* m)
-// {
-     
-// }
+MateriaSource& MateriaSource::operator=(const MateriaSource& rhs)
+{
+    if (this == &rhs)
+        return *this;
 
-// AMateria* MateriaSource::createMateria(std::string const & type)
-// {
-//     AMateria* tmp;
+    for (int i = 0; i < 4; i++)
+    {
+        delete _storage[i];
+        _storage[i] = NULL;
 
-//     if (type.compare("ice"))
-//         tmp = new Ice();
-//     else if (type.compare("cure"))
-//         tmp = new Cure();
-//     return tmp;
-// }
+        if (rhs._storage[i])
+            _storage[i] = rhs._storage[i]->clone();
+    }
+    return *this;
+}
+
+void MateriaSource::learnMateria(AMateria* m)
+{
+     if (!m)
+        return ;
+
+    for(int i = 0; i < 4; i++)
+    {
+        if (!_storage[i])
+        {
+            _storage[i] = m->clone();
+            delete m;
+            return ;
+        }
+    }
+    
+    delete m;
+    std::cout << "Can't stock more" << std::endl;
+}
+
+AMateria* MateriaSource::createMateria(std::string const & type)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (_storage[i] && _storage[i]->getType() == type)
+            return _storage[i]->clone();
+    }
+
+    return 0;
+}

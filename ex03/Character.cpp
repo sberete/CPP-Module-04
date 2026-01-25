@@ -6,23 +6,44 @@ Character::Character(std::string name) : _name(name)
         _inventory[i] = NULL;
 }
 
-Character::~Character(){}
+Character::~Character()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (_inventory[i])
+            delete _inventory[i];
+    }
+}
 
 Character::Character(Character const & src)
 {
+    for(int i = 0; i < 4; i++)
+        _inventory[i] = NULL;
+
     *this = src;
 }
 Character & Character::operator=(Character const & rhs)
 {
+    if (this == &rhs)
+        return *this;
+
     _name = rhs._name;
+
     for (int i = 0; i < 4; i++)
-        _inventory[i] = rhs._inventory[i];
+    {
+        delete _inventory[i];
+        _inventory[i] = NULL;
+
+        if (rhs._inventory[i])
+            _inventory[i] = rhs._inventory[i]->clone();
+    }
+        
     return *this;    
 }
 
 std::string const & Character::getName() const
 {
-    return this->_name;
+    return _name;
 }
 
 void Character::unequip(int idx)
@@ -48,7 +69,8 @@ void Character::equip(AMateria* m)
             return ;
         }
     }
-
+    
+    delete m;
     std::cout << "No one slot availaible" << std::endl;
 }
 
@@ -59,6 +81,7 @@ void Character::use(int idx, ICharacter& target)
         std::cerr << "Index invalid" << std::endl;
         return ;
     }
+
     if (_inventory[idx])
         _inventory[idx]->use(target);
 }

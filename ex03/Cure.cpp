@@ -6,11 +6,11 @@ Cure::~Cure(){}
 
 Cure::Cure(Cure const & src) : AMateria(src) {}
 
-// Cure & Cure::operator= (Cure const & rhs)
-// {
-//     type = rhs.type;
-//     return *this;
-// }
+Cure & Cure::operator=(Cure const & rhs)
+{
+    type = rhs.type;
+    return *this;
+}
 
 AMateria* Cure::clone() const
 {
