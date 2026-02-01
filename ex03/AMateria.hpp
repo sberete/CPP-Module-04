@@ -8,7 +8,6 @@
 class AMateria
 {
     public:
-        AMateria();
         AMateria(std::string const & type);
         AMateria(AMateria const & src);
         virtual ~AMateria();
@@ -20,6 +19,7 @@ class AMateria
         virtual void use(ICharacter& target);
 
     protected:
+        AMateria();
         std::string type;
 };
 

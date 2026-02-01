@@ -40,7 +40,7 @@ void Cat::setIdea(int index, const std::string& idea)
     _brain->ideas[index] = idea;
 }
 
-std::string Cat::getIdea(int index) const
+std::string const & Cat::getIdea(int index) const
 {
     if (index < 0 || index >= 100)
         return "";

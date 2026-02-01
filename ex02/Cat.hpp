@@ -15,7 +15,7 @@ class Cat : public AAnimal
 
         virtual void makeSound() const;
         void setIdea(int, const std::string&);
-        std::string getIdea(int) const;
+        std::string const & getIdea(int) const;
 
     private:
         Brain* _brain;
